@@ -1,0 +1,23 @@
+name: Contribution calendar
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 3 * * *'
+
+jobs:
+  calendar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: lowlighter/metrics@65836723097537a54cd8eb90f61839426b4266b6 # v3.34
+        with:
+          token: ${{ secrets.METRICS_TOKEN || github.token }}
+          user: terry-xyz
+          filename: github-metrics.svg
+          base: ''
+          plugin_isocalendar: 'yes'
+          plugin_isocalendar_duration: full-year
+          plugins_errors_fatal: 'yes'
